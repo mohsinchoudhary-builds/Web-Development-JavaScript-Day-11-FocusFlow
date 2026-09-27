@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FocusFlow - Daily Planner</title>
+
+    
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ⚡
+            </div>
+
+            <div>
+                <h2>FocusFlow</h2>
+                <span>Plan • Focus • Grow</span>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <button class="nav-item active" data-section="dashboard">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-item" data-section="routine">
+                📅 My Routine
+            </button>
+
+            <button class="nav-item" data-section="timer">
+                ⏱️ Focus Timer
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="motivation">
+
+                <span>💡</span>
+
+                <p>
+                    Small steps every day
+                    create big results.
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="small-title">
+                    Good day 👋
+                </p>
+
+                <h1>
+                    Let's make today productive!
+                </h1>
+
+                <p id="currentDate"></p>
+
+            </div>
+
+
+            <div class="profile">
+
+                <div class="profile-avatar">
+                    M
+                </div>
+
+                <div>
+
+                    <strong>
+                        My Planner
+                    </strong>
+
+                    <span>
+                        Stay focused
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================================= -->
+        <!-- DASHBOARD -->
+        <!-- ================================================= -->
+
+        <section
+            id="dashboard"
+            class="page-section active-section">
+
+
+            <!-- STATS -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        📋
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Total Tasks
+                        </span>
+
+                        <strong id="totalTasks">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        ⏳
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Remaining
+                        </span>
+
+                        <strong id="remainingTasks">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        ✅
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Completed
+                        </span>
+
+                        <strong id="completedTasks">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        🔥
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Day Streak
+                        </span>
+
+                        <strong id="streak">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PROGRESS -->
+
+            <div class="progress-card">
+
+                <div class="progress-header">
+
+                    <div>
+
+                        <h3>
+                            Today's Progress
+                        </h3>
+
+                        <p>
+                            Complete your tasks and keep growing!
+                        </p>
+
+                    </div>
+
+                    <strong id="progressPercent">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div id="progressFill"></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DASHBOARD GRID -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- TASKS -->
+
+                <div class="content-card tasks-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                Today's Tasks
+                            </h2>
+
+                            <p>
+                                Manage your daily schedule
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            class="primary-btn"
+                            id="openTaskModal">
+
+                            + Add Task
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- SEARCH -->
+
+                    <div class="search-wrapper">
+
+                        <span>
+                            🔍
+                        </span>
+
+                        <input
+                            type="text"
+                            id="searchTask"
+                            placeholder="Search your tasks...">
+
+                    </div>
+
+
+
+                    <!-- TASK CONTAINER -->
+
+                    <div
+                        id="taskContainer"
+                        class="task-container">
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- FOCUS TIMER -->
+
+                <div class="content-card mini-timer">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                Focus Timer
+                            </h2>
+
+                            <p id="activeTaskName">
+                                Select a task to start
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="timer-status"
+                            id="timerStatus">
+
+                            Ready
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="timer-circle">
+
+                        <div>
+
+                            <span id="timerDisplay">
+                                00:00
+                            </span>
+
+                            <small id="timerTaskInfo">
+                                No task selected
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="timer-buttons">
+
+                        <button
+                            id="startTimer"
+                            class="timer-btn start">
+
+                            ▶ Start
+
+                        </button>
+
+
+                        <button
+                            id="pauseTimer"
+                            class="timer-btn">
+
+                            ⏸ Pause
+
+                        </button>
+
+
+                        <button
+                            id="resetTimer"
+                            class="timer-btn">
+
+                            ↻ Reset
+
+                        </button>
+
+                    </div>
+
+
+                    <p class="timer-note">
+                        Timer duration comes from
+                        the selected task's start and end time.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- ROUTINE -->
+        <!-- ================================================= -->
+
+        <section
+            id="routine"
+            class="page-section">
+
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        YOUR PLAN
+                    </span>
+
+                    <h1>
+                        30-Day Routine
+                    </h1>
+
+                    <p>
+                        Build a routine and stay consistent.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    id="openRoutineModal">
+
+                    + Create Routine
+
+                </button>
+
+            </div>
+
+
+
+            <div class="routine-progress">
+
+                <div>
+
+                    <span>
+                        Monthly Progress
+                    </span>
+
+                    <strong id="monthlyPercent">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div id="monthlyFill"></div>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="routine-grid"
+                id="routineContainer">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- TIMER PAGE -->
+        <!-- ================================================= -->
+
+        <section
+            id="timer"
+            class="page-section">
+
+
+            <div class="timer-page">
+
+                <span class="section-label">
+                    DEEP WORK
+                </span>
+
+                <h1>
+                    Focus Timer
+                </h1>
+
+                <p>
+                    Select a task from Dashboard
+                    and start its timer.
+                </p>
+
+
+                <div class="big-timer">
+
+                    <span id="bigTimerDisplay">
+                        00:00
+                    </span>
+
+                </div>
+
+
+                <div class="selected-task-box">
+
+                    <strong id="bigTimerTaskName">
+                        No task selected
+                    </strong>
+
+                    <span id="bigTimerTaskTime">
+                        Select a task to begin.
+                    </span>
+
+                </div>
+
+
+                <div class="big-timer-buttons">
+
+                    <button
+                        id="bigStart"
+                        class="primary-btn">
+
+                        ▶ Start Focus
+
+                    </button>
+
+
+                    <button
+                        id="bigPause"
+                        class="secondary-btn">
+
+                        ⏸ Pause
+
+                    </button>
+
+
+                    <button
+                        id="bigReset"
+                        class="secondary-btn">
+
+                        ↻ Reset
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================================================= -->
+    <!-- TASK MODAL -->
+    <!-- ================================================= -->
+
+    <div
+        class="modal"
+        id="taskModal">
+
+
+        <div class="modal-content">
+
+
+            <button
+                class="close-modal"
+                data-close="taskModal">
+
+                ×
+
+            </button>
+
+
+            <h2 id="taskModalTitle">
+                Add New Task
+            </h2>
+
+
+            <p>
+                Create a task with its own focus time.
+            </p>
+
+
+
+            <form id="taskForm">
+
+
+                <label>
+                    Task Name
+                </label>
+
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="e.g. Study JavaScript"
+                    required>
+
+
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    id="taskDescription"
+                    placeholder="What do you need to do?">
+                </textarea>
+
+
+
+                <div class="form-row">
+
+
+                    <div>
+
+                        <label>
+                            Start Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="taskStart"
+                            required>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label>
+                            End Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="taskEnd"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <label>
+                    Category
+                </label>
+
+
+                <select id="taskCategory">
+
+                    <option value="Study">
+                        📚 Study
+                    </option>
+
+                    <option value="Work">
+                        💻 Work
+                    </option>
+
+                    <option value="Health">
+                        🏃 Health
+                    </option>
+
+                    <option value="Personal">
+                        🏠 Personal
+                    </option>
+
+                </select>
+
+
+
+                <button
+                    class="primary-btn full-btn"
+                    type="submit">
+
+                    Save Task
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- ROUTINE MODAL -->
+    <!-- ================================================= -->
+
+    <div
+        class="modal"
+        id="routineModal">
+
+
+        <div class="modal-content">
+
+
+            <button
+                class="close-modal"
+                data-close="routineModal">
+
+                ×
+
+            </button>
+
+
+            <h2>
+                Create 30-Day Routine
+            </h2>
+
+
+            <p>
+                Create a routine that you want to repeat.
+            </p>
+
+
+
+            <form id="routineForm">
+
+
+                <label>
+                    Routine Name
+                </label>
+
+                <input
+                    type="text"
+                    id="routineName"
+                    placeholder="e.g. Daily JavaScript Study"
+                    required>
+
+
+
+                <label>
+                    Time
+                </label>
+
+                <input
+                    type="time"
+                    id="routineTime"
+                    required>
+
+
+
+                <label>
+                    Duration (minutes)
+                </label>
+
+                <input
+                    type="number"
+                    id="routineDuration"
+                    value="60"
+                    min="1"
+                    required>
+
+
+
+                <label>
+                    Category
+                </label>
+
+                <select id="routineCategory">
+
+                    <option value="Study">
+                        📚 Study
+                    </option>
+
+                    <option value="Exercise">
+                        🏃 Exercise
+                    </option>
+
+                    <option value="Reading">
+                        📖 Reading
+                    </option>
+
+                    <option value="Work">
+                        💻 Work
+                    </option>
+
+                    <option value="Personal">
+                        🌱 Personal
+                    </option>
+
+                </select>
+
+
+
+                <button
+                    class="primary-btn full-btn"
+                    type="submit">
+
+                    Create 30-Day Routine
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TOAST -->
+
+    <div id="toast" class="toast">
+        Task saved successfully!
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
